@@ -34,7 +34,7 @@ class Point;
 /// A seed is a probabilistic depth estimate for a single pixel.
 struct Seed
 {
-  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  //EIGEN_MAKE_ALIGNED_OPERATOR_NEW
 
   static int batch_counter;
   static int seed_counter;
@@ -46,7 +46,8 @@ struct Seed
   float mu;                    //!< Mean of normal distribution.
   float z_range;               //!< Max range of the possible depth.
   float sigma2;                //!< Variance of normal distribution.
-  Matrix2d patch_cov;          //!< Patch covariance in reference image.
+//  Matrix2d patch_cov;          //!< Patch covariance in reference image.
+  Eigen::Matrix<double, 2, 2, Eigen::DontAlign> patch_cov;
   Seed(Feature* ftr, float depth_mean, float depth_min);
 };
 
@@ -135,6 +136,7 @@ public:
       const double px_error_angle);
 
 protected:
+private:
   feature_detection::DetectorPtr feature_detector_;
   callback_t seed_converged_cb_;
   std::list<Seed> seeds_;
